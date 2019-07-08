@@ -78,7 +78,7 @@
 
 		<script src="./Scripts/layuiAdmin/src/layuiadmin/layui/layui.js"></script>
 		<script src="./Scripts/FileSaver.js"></script>
-		
+
 		<script type="text/javascript">
 			layui.use(['form', 'laydate', 'laypage', 'table'], function() {
 				var $ = layui.jquery,
@@ -88,7 +88,8 @@
 					table = layui.table,
 					form = layui.form;
 
-
+				var clientHeight = window.screen.availHeight;
+				console.log(clientHeight)
 				var index = 1;
 				var decList = [];
 				var tableins = table.render({
@@ -117,7 +118,7 @@
 					data: decList,
 					even: true,
 					limit: decList.length,
-					height: 500
+					height: clientHeight-400
 				});
 
 				$("#btnAddDecorations").click(function() {
@@ -188,7 +189,7 @@
 					var blob = new Blob([JSON.stringify(decList)], {
 						type: ""
 					});
-					saveAs(blob, "hello.json");
+					saveAs(blob, "MHWDecSLList.json");
 				})
 
 
