@@ -65,7 +65,7 @@
 							<a href="#" class="layui-btn layui-btn-sm" id="btnAddDecorations">添加</a>
 							<a href="#" class="layui-btn layui-btn-sm" id="btnAddTrashy">添加垃圾</a>
 							<a href="#" class="layui-btn layui-btn-sm" id="btnClearIndex">序号归零</a>
-							<!-- <input type="button" class="layui-btn layui-btn-sm" lay-submit value="保存" id="btnSave" lay-filter="btnSave" /> -->
+							<a href="#" class="layui-btn layui-btn-sm" id="btnExport">导出列表</a>
 						</div>
 					</div>
 				</form>
@@ -77,6 +77,8 @@
 
 
 		<script src="./Scripts/layuiAdmin/src/layuiadmin/layui/layui.js"></script>
+		<script src="./Scripts/FileSaver.js"></script>
+		
 		<script type="text/javascript">
 			layui.use(['form', 'laydate', 'laypage', 'table'], function() {
 				var $ = layui.jquery,
@@ -182,6 +184,12 @@
 				}
 
 
+				$("#btnExport").click(function() {
+					var blob = new Blob([JSON.stringify(decList)], {
+						type: ""
+					});
+					saveAs(blob, "hello.json");
+				})
 
 
 
