@@ -1,42 +1,195 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 
 <html>
-<head>
-    <title>怪猎珠子SL辅助记忆工具</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link href="./Scripts/layuiAdmin/src/layuiadmin/layui/css/layui.css" rel="stylesheet" media="all" />
-    <link href="./Scripts/layuiAdmin/src/layuiadmin/style/admin.css" rel="stylesheet" media="all" />
-
-    
-    <style type="text/css">
-        html {
-            background-color: #fff;
-        }
-
-    </style>
-</head>
-<body>
+	<head>
+		<title>怪猎珠子SL辅助记忆工具</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link href="./Scripts/layuiAdmin/src/layuiadmin/layui/css/layui.css" rel="stylesheet" media="all" />
+		<link href="./Scripts/layuiAdmin/src/layuiadmin/style/admin.css" rel="stylesheet" media="all" />
 
 
+		<style type="text/css">
+			html {
+				background-color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="layui-card" style="height:100%">
+			<div class="layui-form layui-card-body layuiadmin-card-header-auto">
+				<form id="FormMain" name="FormMain" method="post">
+					<div class="layui-card" style="background-color:#F7F7F7">
+						<div class="layui-card-header">
+							列表
+						</div>
+						<div class="layui-card-body">
+							<table class="layui-table" id="table-Dec" lay-filter="table-Dec"></table>
+							<script type="text/html" id="barDec">
+								<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                        </script>
+
+						</div>
+					</div>
+					<div class="layui-row">
+						<div class="layui-col-xs10" style="margin-right:20px">
+							<div class="layui-form-item">
+								<div class="layui-inline">
+									<label class="layui-form-label">珠子1</label>
+									<div class="layui-input-inline">
+										<input type="text" id="Dec1" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">珠子2</label>
+									<div class="layui-input-inline">
+										<input type="text" id="Dec2" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">珠子3</label>
+									<div class="layui-input-inline">
+										<input type="text" id="Dec3" class="layui-input">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-xs1">
+
+						</div>
+					</div>
+					<div class="layui-form-item btngroup">
+						<div class="layui-input-block text-right" style="line-height:48px">
+							<a href="#" class="layui-btn layui-btn-sm" id="btnAddDecorations">添加</a>
+							<a href="#" class="layui-btn layui-btn-sm" id="btnAddTrashy">添加垃圾</a>
+							<a href="#" class="layui-btn layui-btn-sm" id="btnClearIndex">序号归零</a>
+							<!-- <input type="button" class="layui-btn layui-btn-sm" lay-submit value="保存" id="btnSave" lay-filter="btnSave" /> -->
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 
 
 
-    
-    <script src="./Scripts/layuiAdmin/src/layuiadmin/layui/layui.js"></script>
-    <script src="./Scripts/layuiAdmin/src/layuiadmin/layui/layer-package.js"></script>
-    <script type="text/javascript">
 
-        layui.use(['form', 'layer', 'element'], function () {
-            var form = layui.form, element = layui.element, $ = layui.jquery, layer = layui.layer;
-            $(function(){
-                alert(1);
-            })
-        });
-    </script>
-   
-    
-</body>
+
+		<script src="./Scripts/layuiAdmin/src/layuiadmin/layui/layui.js"></script>
+		<script type="text/javascript">
+			layui.use(['form', 'laydate', 'laypage', 'table'], function() {
+				var $ = layui.jquery,
+					layer = layui.layer,
+					laydate = layui.laydate,
+					laypage = layui.laypage,
+					table = layui.table,
+					form = layui.form;
+
+
+				var index = 1;
+				var decList = [];
+				var tableins = table.render({
+					elem: '#table-Dec',
+					cols: [
+						[ //标题栏
+							{
+								field: 'index',
+								title: '序号',
+								fixed: 'left'
+							}, {
+								field: 'Dec1',
+								title: '珠子1'
+							}, {
+								field: 'Dec2',
+								title: '珠子2'
+							}, {
+								field: 'Dec3',
+								title: '珠子3'
+							}, {
+								title: '操作',
+								toolbar: '#barDec'
+							}
+						]
+					],
+					data: decList,
+					even: true,
+					limit: decList.length,
+					height: 500
+				});
+
+				$("#btnAddDecorations").click(function() {
+					decList.push({
+						id: RndNum(15),
+						index: index,
+						Dec1: $("#Dec1").val(),
+						Dec2: $("#Dec2").val(),
+						Dec3: $("#Dec3").val()
+					});
+					index = index + 1;
+					tableins.reload({
+						data: decList,
+						limit: decList.length
+					})
+				})
+
+				$("#btnAddTrashy").click(function() {
+					decList.push({
+						id: RndNum(15),
+						index: index,
+						Dec1: "垃圾",
+						Dec2: "垃圾",
+						Dec3: "垃圾"
+					});
+					index = index + 1;
+					tableins.reload({
+						data: decList,
+						limit: decList.length
+					})
+				})
+
+				$("#btnClearIndex").click(function() {
+					index = 1;
+				})
+
+
+
+
+				//监听工具条
+				table.on('tool(table-Dec)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'del') {
+						obj.del();
+						decList = decList.filter(function(p) {
+							return p.index != data.index;
+						});
+						tableins.reload({
+							data: decList,
+							limit: decList.length
+						})
+
+					}
+				});
+
+
+
+				//产生随机数函数
+				function RndNum(n) {
+					var rnd = "";
+					for (var i = 0; i < n; i++)
+						rnd += Math.floor(Math.random() * 10);
+					return rnd;
+				}
+
+
+
+
+
+
+
+			});
+		</script>
+
+
+	</body>
 </html>
