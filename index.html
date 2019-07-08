@@ -67,6 +67,7 @@
 							<a href="#" class="layui-btn layui-btn-sm" id="btnClearIndex">序号归零</a>
 							<a href="#" class="layui-btn layui-btn-sm" id="btnExport">导出列表</a>
 							<a href="#" class="layui-btn layui-btn-sm" id="btnRemoveAll">全部清除</a>
+							<button type="button" class="layui-btn layui-btn-sm" id="btnImportJson">导入列表</button>
 						</div>
 					</div>
 				</form>
@@ -79,14 +80,15 @@
 
 		<script src="./Scripts/layuiAdmin/src/layuiadmin/layui/layui.js"></script>
 		<script src="./Scripts/FileSaver.js"></script>
-
+		<script src="./Scripts/base64.js"></script>
 		<script type="text/javascript">
-			layui.use(['form', 'laydate', 'laypage', 'table'], function() {
+			layui.use(['form', 'upload', 'laydate', 'laypage', 'table'], function() {
 				var $ = layui.jquery,
 					layer = layui.layer,
 					laydate = layui.laydate,
 					laypage = layui.laypage,
 					table = layui.table,
+					upload = layui.upload,
 					form = layui.form;
 
 				var clientHeight = window.screen.availHeight;
@@ -137,6 +139,7 @@
 				})
 
 				$("#btnAddTrashy").click(function() {
+					console.log($("#btnImportJson"))
 					decList.push({
 						id: RndNum(15),
 						index: index,
@@ -164,7 +167,7 @@
 					if (obj.event === 'del') {
 						obj.del();
 						decList = decList.filter(function(p) {
-							
+
 							return p.index != data.index;
 						});
 						if (data.index == index - 1) {
@@ -195,6 +198,25 @@
 					});
 					saveAs(blob, "MHWDecSLList.json");
 				})
+
+
+				//选完文件后不自动上传
+				upload.render({
+					elem: '#btnImportJson',
+					url: '/upload/',
+					accept: 'file',
+					auto: false,
+					choose: function(res) {
+						res.preview(function(index, file, result) {
+							decList = JSON.parse(Base64.decode(result.slice(29)));
+							tableins.reload({
+								data: decList,
+								limit: decList.length
+							})
+						})
+
+					}
+				});
 
 
 				$("#btnRemoveAll").click(function() {
