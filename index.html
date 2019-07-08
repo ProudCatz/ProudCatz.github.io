@@ -66,6 +66,7 @@
 							<a href="#" class="layui-btn layui-btn-sm" id="btnAddTrashy">添加垃圾</a>
 							<a href="#" class="layui-btn layui-btn-sm" id="btnClearIndex">序号归零</a>
 							<a href="#" class="layui-btn layui-btn-sm" id="btnExport">导出列表</a>
+							<a href="#" class="layui-btn layui-btn-sm" id="btnRemoveAll">全部清除</a>
 						</div>
 					</div>
 				</form>
@@ -89,7 +90,6 @@
 					form = layui.form;
 
 				var clientHeight = window.screen.availHeight;
-				console.log(clientHeight)
 				var index = 1;
 				var decList = [];
 				var tableins = table.render({
@@ -118,7 +118,7 @@
 					data: decList,
 					even: true,
 					limit: decList.length,
-					height: clientHeight-400
+					height: clientHeight - 450
 				});
 
 				$("#btnAddDecorations").click(function() {
@@ -190,6 +190,16 @@
 						type: ""
 					});
 					saveAs(blob, "MHWDecSLList.json");
+				})
+
+
+				$("#btnRemoveAll").click(function() {
+					decList = [];
+					tableins.reload({
+						data: decList,
+						limit: decList.length
+					})
+					index = 1;
 				})
 
 
