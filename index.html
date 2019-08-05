@@ -124,18 +124,44 @@
 				});
 
 				$("#btnAddDecorations").click(function() {
+					var dec1,dec1,dec3;
+					
+					if ($("#Dec1").val()!="") {
+						dec1="<span class='layui-badge layui-bg-green'>" + $("#Dec1").val() + "</span>";
+					}
+					else{
+						dec1="垃圾";
+					}
+					if ($("#Dec2").val()!="") {
+						dec2="<span class='layui-badge layui-bg-green'>" + $("#Dec2").val() + "</span>";
+					}
+					else{
+						dec2="垃圾";
+					}
+					if ($("#Dec3").val()!="") {
+						dec3="<span class='layui-badge layui-bg-green'>" + $("#Dec3").val() + "</span>";
+					}
+					else{
+						dec3="垃圾";
+					}
+					
+					
 					decList.push({
 						id: RndNum(15),
 						index: index,
-						Dec1: $("#Dec1").val(),
-						Dec2: $("#Dec2").val(),
-						Dec3: $("#Dec3").val()
+						Dec1: dec1,
+						Dec2: dec2,
+						Dec3: dec3
 					});
 					index = index + 1;
 					tableins.reload({
 						data: decList,
 						limit: decList.length
 					})
+					$("#Dec1").val("");
+					$("#Dec2").val("");
+					$("#Dec3").val("");
+					
 				})
 
 				$("#btnAddTrashy").click(function() {
