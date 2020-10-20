@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -13,16 +13,37 @@
 					<key>url</key>
 					<string>https://proudcatz.github.io/html/eh.ipa</string>
 				</dict>
+				<dict>
+					<key>kind</key>
+					<string>full-size-image</string>
+					<key>needs-shine</key>
+					<false/>
+					<key>url</key>
+					<string>https://raw.githubusercontent.com/ghostgzt/ipa/master/tgx/tgx.png</string>
+				</dict>
+				<dict>
+					<key>kind</key>
+					<string>display-image</string>
+					<key>needs-shine</key>
+					<false/>
+					<key>url</key>
+					<string>https://raw.githubusercontent.com/ghostgzt/ipa/master/tgx/tgx.png</string>
+				</dict>
 			</array>
 			<key>metadata</key>
 			<dict>
 				<key>bundle-identifier</key>
-				<string>com.XXX.smartwork</string>
+				<string>com.vlang.recPay</string>
 				<key>bundle-version</key>
 				<string>1.0</string>
 				<key>kind</key>
 				<string>software</string>
+				<key>subtitle</key>
+				<string>TGX</string>
 				<key>title</key>
-				<string>eh.ipa</string>
+				<string>eh</string>
 			</dict>
 		</dict>
+	</array>
+</dict>
+</plist>
